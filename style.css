@@ -1,0 +1,1077 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+/* NAVBAR */
+nav{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 40px;
+
+    background:#111;
+
+    color:white;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+}
+
+nav h1{
+
+    font-size:28px;
+}
+
+nav button{
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+nav button:hover{
+
+    transform:scale(1.05);
+}
+
+/* HERO SECTION */
+
+.hero{
+    height:80vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.hero h2{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+/* BUTTON */
+
+button{
+    padding:12px 25px;
+
+    border:none;
+
+    background:#007bff;
+    color:white;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    margin-top:10px;
+}
+
+/* TASK SECTION */
+
+.task-section{
+    text-align:center;
+    padding:50px;
+}
+
+.task-section h2{
+    margin-bottom:20px;
+}
+
+.task-section input{
+    padding:10px;
+    width:250px;
+}
+
+#taskList{
+    margin-top:20px;
+}
+
+#taskList li{
+    width:300px;
+
+    background:white;
+
+    margin:10px auto;
+
+    padding:10px;
+
+    border-radius:5px;
+
+    list-style:none;
+}
+
+#taskList button{
+    background:red;
+    margin-left:15px;
+    padding:5px 10px;
+}
+
+/* TIMER */
+
+.timer-section{
+    text-align:center;
+    padding:50px;
+}
+
+#timer{
+    font-size:70px;
+    margin:20px;
+}
+
+/* DARK MODE */
+
+.dark{
+    background:#111;
+    color:white;
+}
+
+.dark nav{
+    background:black;
+}
+
+.dark #taskList li{
+    background:#222;
+    color:white;
+}
+
+.dark input{
+    background:#333;
+    color:white;
+    border:1px solid white;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction:column;
+    }
+
+    nav ul{
+        margin-top:15px;
+    }
+
+    .hero h2{
+        font-size:35px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .task-section input{
+        width:90%;
+        margin-bottom:10px;
+    }
+
+    #taskList li{
+        width:90%;
+    }
+}
+/* AUTH PAGE */
+
+.auth-container{
+
+    width:350px;
+
+    background:white;
+
+    padding:40px;
+
+    margin:100px auto;
+
+    border-radius:10px;
+
+    text-align:center;
+}
+
+.auth-container input{
+
+    width:100%;
+
+    padding:12px;
+
+    margin:10px 0;
+}
+/* DASHBOARD */
+
+.dashboard{
+
+    text-align:center;
+
+    padding:100px;
+}
+
+.dashboard h2{
+
+    font-size:40px;
+
+    margin-bottom:20px;
+}
+
+/* ATTENDANCE */
+
+.attendance{
+
+    text-align:center;
+
+    padding:50px;
+}
+
+.attendance input{
+
+    padding:10px;
+
+    margin:10px;
+}
+
+#attendanceList{
+
+    margin-top:20px;
+}
+
+#attendanceList li{
+
+    list-style:none;
+
+    background:white;
+
+    width:300px;
+
+    margin:10px auto;
+
+    padding:10px;
+
+    border-radius:5px;
+}
+
+/* NOTES */
+
+.notes{
+
+    text-align:center;
+
+    padding:50px;
+}
+
+.notes textarea{
+
+    width:400px;
+
+    height:150px;
+
+    padding:10px;
+}
+/* DASHBOARD CARDS */
+
+.cards{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    padding:50px;
+}
+
+.card{
+
+    background:white;
+
+    width:220px;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.card h2{
+    font-size:28px;
+    margin-bottom:15px;
+}
+/* CHART */
+
+.chart-section{
+
+    width:80%;
+
+    margin:auto;
+
+    padding:50px;
+
+    text-align:center;
+}
+
+#studyChart{
+
+    margin-top:30px;
+}
+
+/* DARK MODE */
+
+.dark .card{
+
+    background:#222;
+
+    color:white;
+}
+@media(max-width:768px){
+
+    .cards{
+
+        flex-direction:column;
+
+        align-items:center;
+    }
+
+    .chart-section{
+
+        width:95%;
+    }
+
+    .notes textarea{
+
+        width:90%;
+    }
+}
+.profile{
+
+    text-align:center;
+
+    padding:40px;
+}
+
+.profile img{
+
+    border-radius:50%;
+}
+
+.profile h2{
+
+    margin-top:15px;
+}
+/* DAILY PLANNER */
+
+.planner{
+
+    text-align:center;
+
+    padding:50px;
+}
+
+.planner input{
+
+    padding:10px;
+
+    margin:10px;
+}
+
+#plannerList{
+
+    margin-top:20px;
+}
+
+#plannerList li{
+
+    list-style:none;
+
+    background:white;
+
+    width:700px;
+    max-width:90%;
+    overflow-wrap:break-word;
+
+    margin:10px auto;
+
+    padding:8px;
+
+    border-radius:10px;
+
+    text-align:center;
+}
+/* AI TIMETABLE */
+
+.ai-timetable{
+
+    text-align:center;
+
+    padding:50px;
+}
+
+.ai-timetable input{
+
+    padding:12px;
+
+    width:250px;
+}
+
+#timetableOutput{
+
+    margin-top:30px;
+
+    background:white;
+
+    width:400px;
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+    padding:20px;
+
+    border-radius:10px;
+}
+/* DELETE BUTTON */
+
+li button{
+
+    background:red;
+
+    color:white;
+
+    border:none;
+
+    padding:5px 10px;
+
+    margin-left:10px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+}
+.card{
+
+    transition:0.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+button{
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:scale(1.05);
+}
+.dark body{
+
+    background:#111;
+
+    color:white;
+}
+
+.dark input,
+.dark textarea{
+
+    background:#222;
+
+    color:white;
+
+    border:1px solid #555;
+}
+
+.dark #timetableOutput{
+
+    background:#222;
+
+    color:white;
+}
+/* LIVE CLOCK */
+
+.clock-section{
+
+    text-align:center;
+
+    padding:20px 0 10px 0;
+}
+
+#liveClock{
+
+    font-size:55px;
+
+    font-weight:bold;
+
+    color:#4CAF50;
+
+    background:white;
+
+    width:320px;
+
+    margin:10px auto;
+
+    padding:15px;
+
+    border-radius:20px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+/* STREAK */
+
+.streak{
+
+    text-align:center;
+
+    padding:40px;
+}
+
+#streakCount{
+
+    font-size:50px;
+
+    color:orange;
+}
+/* QUOTES */
+
+.quotes{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:20px;
+}
+
+#quoteText{
+
+    font-size:25px;
+
+    margin:20px;
+
+    font-style:italic;
+
+    color:#4CAF50;
+}
+/* COUNTDOWN */
+
+.countdown{
+
+    text-align:center;
+
+    padding:50px;
+}
+
+#countdownResult{
+
+    font-size:45px;
+
+    color:red;
+
+    margin-top:20px;
+}
+/* COMPLETE BUTTON */
+
+button{
+
+    margin:5px;
+}
+
+button:nth-child(1){
+
+    background:green;
+
+    color:white;
+}
+#plannerList button{
+
+    padding:6px 12px;
+
+    border:none;
+
+    border-radius:5px;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+#plannerList button:first-of-type{
+
+    background:green;
+}
+
+#plannerList button:last-of-type{
+
+    background:red;
+}
+nav ul{
+
+    display:flex;
+
+    list-style:none;
+
+    gap:20px;
+}
+
+nav ul li a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:18px;
+}
+
+nav ul li a:hover{
+
+    color:#4CAF50;
+}
+#plannerList li{
+
+    font-size:20px;
+}
+
+#plannerList li:hover{
+
+    transform:scale(1.02);
+
+    transition:0.3s;
+}
+/* ATTENDANCE LIST */
+
+#attendanceList li{
+
+    list-style:none;
+
+    background:white;
+
+    width:350px;
+
+    margin:15px auto;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+#attendanceList li:hover{
+
+    transform:scale(1.02);
+
+    transition:0.3s;
+}
+#attendanceList button{
+
+    background:red;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 15px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+}
+/* NOTES PAGE */
+
+.notes{
+
+    text-align:center;
+
+    padding:50px;
+}
+
+.notes textarea{
+
+    width:70%;
+
+    height:300px;
+
+    padding:20px;
+
+    font-size:18px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    resize:none;
+}
+
+#savedMessage{
+
+    text-align:center;
+
+    color:green;
+
+    margin-top:20px;
+}
+.analytics{
+
+    width:80%;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:50px;
+}
+
+#progressChart{
+
+    width:400px !important;
+
+    margin:auto;
+}
+/* POMODORO */
+
+.pomodoro{
+
+    text-align:center;
+    padding:80px;
+}
+
+#timer{
+
+    font-size:80px;
+    margin:30px;
+    color:#4CAF50;
+}
+/* DYNAMIC PROGRESS */
+
+.progress{
+
+    text-align:center;
+    padding:50px;
+}
+
+.progress input{
+
+    padding:12px;
+    margin:10px;
+}
+
+.progress-card{
+
+    background:white;
+    width:450px;
+    margin:20px auto;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.progress-card progress{
+
+    width:100%;
+    height:30px;
+}
+
+.progress-card button{
+
+    margin:8px;
+}
+/* OVERALL PROGRESS */
+
+.overall-card{
+
+    background:white;
+    width:350px;
+    margin:20px auto;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+#overallProgress{
+
+    font-size:50px;
+    color:#4CAF50;
+}
+
+.complete-badge{
+
+    color:green;
+    margin:10px;
+}
+.profile{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    width:350px;
+    margin:auto;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+.profile{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    width:350px;
+    margin:auto;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+#dashboardPhoto{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+}
+.profile{
+    margin: 30px auto;
+    text-align:center;
+}
+.clock-section{
+    text-align:center;
+    padding:20px 0 10px 0;
+}
+
+#liveClock{
+    font-size:55px;
+    font-weight:bold;
+    color:#4CAF50;
+    background:white;
+    width:320px;
+    margin:20px auto 10px auto;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+.clock-section{
+    padding:20px 0 0 0;
+}
+
+.dashboard{
+    text-align:center;
+    padding:40px 20px;
+    margin-top:0;
+}
+.cards{
+    margin-top:40px;
+    padding-top:40px;
+    gap:25px;
+}
+
+.card{
+    min-height:230px;
+
+}
+
+.quotes{
+    margin-top:10px;
+    padding-bottom:60px;
+}
+body{
+    padding-top:100px;
+}
+.cards{
+    margin-top:80px;
+    padding-top:800px;
+}
+.profile{
+    margin-bottom:20px;
+    padding-bottom:20px;
+}
+
+.cards{
+    margin-top:20px;
+    padding-top:20px;
+}
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.logo-icon{
+
+    font-size:32px;
+}
+
+.logo h1{
+
+    margin:0;
+
+    font-size:28px;
+}
+.task-info{
+    text-align:left;
+}
+
+.task-info p{
+    margin:5px 0;
+}
+
+.task-buttons{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-top:10px;
+}
+#plannerList li{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    padding:15px;
+
+    margin:15px 0;
+
+    background:white;
+
+    border-radius:10px;
+}
+#plannerList button{
+    padding:8px 15px;     
+    margin:3px;
+}
+#plannerList li{
+
+    text-align:center;
+
+    padding:15px;
+
+    margin:15px 0;
+
+    background:white;
+
+    border-radius:10px;
+}
+
+#plannerList li p{
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+ text-align:center;
+    margin-bottom:15px;
+}
+
+#plannerList button{
+
+    margin:5px;
+}
+.task-line{
+
+    white-space:normal;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    text-align:center;
+}
+.task-line{
+
+    white-space:nowrap;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    text-align:center;
+}
+.planner{
+    text-align:center;
+}
+
+#plannerList{
+    width:100%;
+    padding:0;
+    margin:20px auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+#plannerList li{
+    width:650px;
+    max-width:90%;
+    margin:12px auto;
+    padding:1px;
+    list-style:none;
+    background:white;
+    border-radius:10px;
+    text-align:center;
+    display:block;
+}
+#searchTask{
+
+    width:300px;
+
+    padding:10px;
+
+    margin:15px;
+
+    border-radius:6px;
+
+    border:1px solid gray;
+}
+#plannerList li{
+    width:950px;
+    max-width:95%;
+    padding:15px;
+    overflow:hidden;
+}
+
+.task-line{
+    font-size:15px;
+    white-space:normal;
+    word-wrap:break-word;
+}

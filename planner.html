@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Planner</title>
+
+    <link rel="stylesheet"
+    href="style.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h1>Study Planner</h1>
+
+    <ul>
+
+        <li>
+            <a href="dashboard.html">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="planner.html">
+                Planner
+            </a>
+        </li>
+
+        <li>
+            <a href="attendance.html">
+                Attendance
+            </a>
+        </li>
+
+        <li>
+            <a href="notes.html">
+                Notes
+            </a>
+        </li>
+
+        <li>
+            <a href="analytics.html">
+                Analytics
+            </a>
+        </li>
+<li><a href="pomodoro.html">Pomodoro</a></li>
+<li><a href="progress.html">Progress</a></li>
+    </ul>
+
+</nav>
+
+<!-- DAILY PLANNER -->
+
+<section class="planner">
+
+    <h2>Daily Study Planner</h2>
+
+    <input
+    type="date"
+    id="studyDate">
+<select id="subject" onchange="checkSubject()">
+
+    <option value="DBMS">DBMS</option>
+    <option value="CN">CN</option>
+    <option value="OS">OS</option>
+    <option value="Java">Java</option>
+    <option value="DWM">DWM</option>
+    <option value="Other">Other</option>
+
+</select>
+<input
+type="text"
+id="customSubject"
+placeholder="Enter Subject Name"
+style="display:none;">
+    <input
+    type="text"
+    id="studyTask"
+    placeholder="Enter Study Task">
+    <select id="priority">
+    <option value="High">High Priority</option>
+    <option value="Medium">Medium Priority</option>
+    <option value="Low">Low Priority</option>
+</select>
+<label>
+ Start Time
+</label>
+<input
+type="time"
+id="studyTime">
+<label>
+ End Time
+</label>
+<input
+type="time"
+id="endTime">
+    <button onclick="addPlan()">
+        Add Plan
+    </button>
+    <button onclick="enableNotifications()">
+Enable Notifications
+</button>
+<div class="task-stats">
+
+    <h3>
+        📋 Total Tasks:
+        <span id="totalTasks">0</span>
+    </h3>
+
+    <h3>
+        ✅ Completed:
+        <span id="completedTasks">0</span>
+    </h3>
+
+    <h3>
+        ⏳ Pending:
+        <span id="pendingTasks">0</span>
+    </h3>
+
+</div>
+<input
+type="text"
+id="searchTask"
+placeholder="Search Task..."
+onkeyup="searchTask()">
+
+    <ul id="plannerList"></ul>
+
+</section>
+
+<!-- EXAM COUNTDOWN -->
+
+<section class="countdown">
+
+    <h2>Exam Countdown ⏳</h2>
+    <input
+type="text"
+id="examName"
+placeholder="Exam Name">
+<label for="examDatef">Exam date</label>
+    <input
+    type="date"
+    id="examDate">
+    <input
+type="number"
+id="topicsRemaining"
+placeholder="Topics Remaining">
+
+    <button onclick="calculateCountdown()">
+        Calculate
+    </button>
+
+    <h1 id="countdownResult">
+        0 Days Left
+    </h1>
+
+</section>
+
+<!-- STREAK -->
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* ADD PLAN */
+
+function addPlan(){
+
+    let date = document.getElementById("studyDate").value;
+    let task = document.getElementById("studyTask").value;
+    let priority = document.getElementById("priority").value;
+    let studyTime = document.getElementById("studyTime").value;
+    let endTime = document.getElementById("endTime").value;
+    let plannerList = document.getElementById("plannerList");
+
+    let subject = document.getElementById("subject").value;
+
+    if(subject === "Other"){
+        subject = document.getElementById("customSubject").value;
+    }
+
+    if(date === "" || task === "" || studyTime === "" || endTime === "" || subject === ""){
+        alert("Please enter date, start time, end time, subject and task");
+        return;
+    }
+
+    let li = document.createElement("li");
+li.setAttribute("data-date", date);
+li.setAttribute("data-endtime", endTime);
+li.setAttribute("data-date", date);
+li.setAttribute("data-endtime", endTime);
+li.setAttribute("data-alerted", "false");
+    li.innerHTML = `
+        <p class="task-line">
+            📖 ${subject} | ${date} | ${studyTime} - ${endTime} | 📚 ${task} | 🔥 ${priority}
+        </p>
+
+        <span class="task-status">🟢 Pending</span>
+
+        <br>
+
+        <button onclick="completeTask(this)">Complete</button>
+        <button onclick="editPlan(this)">Edit</button>
+        <button onclick="deletePlan(this)">Delete</button>
+    `;
+
+    plannerList.appendChild(li);
+
+    savePlans();
+    updateTaskStats();
+}
+
+/* EDIT */
+
+function editPlan(button){
+
+    let newDate = prompt("Enter new date YYYY-MM-DD");
+    let newTime = prompt("Enter new start time HH:MM");
+    let newEndTime = prompt("Enter new end time HH:MM");
+    let newSubject = prompt("Enter subject");
+    let newTask = prompt("Enter updated task");
+    let newPriority = prompt("Enter priority: High / Medium / Low");
+
+    if(newDate && newTime && newEndTime && newSubject && newTask && newPriority){
+
+        let li = button.closest("li");
+        li.setAttribute("data-date", newDate);
+li.setAttribute("data-endtime", newEndTime);
+li.setAttribute("data-date", newDate);
+li.setAttribute("data-endtime", newEndTime);
+li.setAttribute("data-alerted", "false");
+
+        li.innerHTML = `
+            <p class="task-line">
+                📖 ${newSubject} | ${newDate} | ${newTime} - ${newEndTime} | 📚 ${newTask} | 🔥 ${newPriority}
+            </p>
+
+            <span class="task-status">🟢 Pending</span>
+
+            <br>
+
+            <button onclick="completeTask(this)">Complete</button>
+            <button onclick="editPlan(this)">Edit</button>
+            <button onclick="deletePlan(this)">Delete</button>
+        `;
+
+        savePlans();
+        updateTaskStats();
+    }
+}
+
+/* SAVE */
+
+function savePlans(){
+
+    localStorage.setItem(
+        "studyPlans",
+        document.getElementById("plannerList").innerHTML
+    );
+}
+
+/* SHOW */
+
+function showPlans(){
+
+    document.getElementById("plannerList").innerHTML =
+    localStorage.getItem("studyPlans") || "";
+
+    updateTaskStats();
+}
+
+showPlans();
+
+/* DELETE */
+
+function deletePlan(button){
+
+    button.closest("li").remove();
+
+    savePlans();
+    updateTaskStats();
+}
+
+/* COMPLETE */
+
+function completeTask(button){
+
+    let li = button.closest("li");
+
+    li.classList.add("completed");
+
+    li.style.background = "lightgreen";
+
+    let status = li.querySelector(".task-status");
+
+    if(status){
+        status.innerHTML = "✅ Completed";
+    }
+
+    savePlans();
+    updateTaskStats();
+}
+
+/* COUNTDOWN */
+
+function calculateCountdown(){
+
+    let examName =
+    document.getElementById("examName").value;
+
+    let examDate =
+    new Date(document.getElementById("examDate").value);
+
+    let topics =
+    document.getElementById("topicsRemaining").value;
+
+    let today =
+    new Date();
+
+    let difference =
+    examDate - today;
+
+    let days =
+    Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+    if(examName === "" || topics === "" || days <= 0){
+
+        document.getElementById("countdownResult").innerHTML =
+        "Please enter valid exam details";
+
+        return;
+    }
+
+    let topicsPerDay =
+    Math.ceil(topics / days);
+
+    document.getElementById("countdownResult").innerHTML =
+    `
+    ${examName} Exam in ${days} Days <br>
+    📚 Recommended: Study ${topicsPerDay} Topics Per Day
+    `;
+}
+
+/* STREAK */
+
+let streak =
+localStorage.getItem("studyStreak") || 0;
+
+document.getElementById("streakCount").innerHTML =
+`${streak} Days`;
+let startTime = Date.now();
+alert("Timer Started");
+
+setInterval(function(){
+
+    let currentTime = Date.now();
+
+    let timeSpent =
+    currentTime - startTime;
+
+    if(timeSpent >= 3600000
+
+    ){ // 1 hour
+
+        let today =
+        new Date().toDateString();
+
+        let lastStreakDate =
+        localStorage.getItem("lastStreakDate");
+
+        if(lastStreakDate !== today){
+
+            streak++;
+
+            localStorage.setItem(
+                "studyStreak",
+                streak
+            );
+
+            localStorage.setItem(
+                "lastStreakDate",
+                today
+            );
+
+            document.getElementById(
+            "streakCount"
+            ).innerHTML =
+            `${streak} Days`;
+
+            alert("🔥 Study Streak Increased!");
+        }
+    }
+
+}, 60000);
+
+function increaseStreak(){
+
+    streak++;
+
+    localStorage.setItem(
+        "studyStreak",
+        streak
+    );
+
+    document.getElementById("streakCount").innerHTML =
+    `${streak} Days`;
+}
+
+/* TASK STATS */
+
+function updateTaskStats(){
+
+    let total =
+    document.querySelectorAll("#plannerList li").length;
+
+    let completed =
+    document.querySelectorAll("#plannerList li.completed").length;
+
+    let pending =
+    total - completed;
+
+    document.getElementById("totalTasks").innerHTML = total;
+    document.getElementById("completedTasks").innerHTML = completed;
+    document.getElementById("pendingTasks").innerHTML = pending;
+}
+
+/* CUSTOM SUBJECT */
+
+function checkSubject(){
+
+    let subject =
+    document.getElementById("subject").value;
+
+    let custom =
+    document.getElementById("customSubject");
+
+    if(subject === "Other"){
+        custom.style.display = "inline-block";
+    }
+    else{
+        custom.style.display = "none";
+    }
+}
+
+/* SEARCH TASK */
+
+function searchTask(){
+
+    let input =
+    document.getElementById("searchTask").value.toLowerCase();
+
+    let tasks =
+    document.querySelectorAll("#plannerList li");
+
+    tasks.forEach(function(task){
+
+        let text =
+        task.innerText.toLowerCase();
+
+        if(text.includes(input)){
+            task.style.display = "block";
+        }
+        else{
+            task.style.display = "none";
+        }
+    });
+}
+//overdue check
+function checkOverdueTasks(){
+
+    let tasks =
+    document.querySelectorAll("#plannerList li");
+
+    let now =
+    new Date();
+
+    tasks.forEach(function(task){
+
+        if(task.classList.contains("completed")){
+            return;
+        }
+
+        let date =
+        task.getAttribute("data-date");
+
+        let endTime =
+        task.getAttribute("data-endtime");
+
+        let status =
+        task.querySelector(".task-status");
+
+        if(!date || !endTime || !status){
+            return;
+        }
+
+        let taskEnd =
+        new Date(date + "T" + endTime);
+
+        if(now > taskEnd){
+
+            status.innerHTML =
+            "🔴 Overdue";
+        }
+    });
+}
+
+setInterval(checkOverdueTasks, 60000);
+
+checkOverdueTasks();
+
+    function enableNotifications(){
+
+    Notification.requestPermission().then(function(permission){
+
+        if(permission === "granted"){
+            alert("Notifications Enabled");
+        }
+        else{
+            alert("Notifications Blocked");
+        }
+    });
+}
+
+function checkTimeEnded(){
+
+    let tasks = document.querySelectorAll("#plannerList li");
+    let now = new Date();
+
+    tasks.forEach(function(task){
+
+        if(task.classList.contains("completed")){
+            return;
+        }
+
+        if(task.getAttribute("data-alerted") === "true"){
+            return;
+        }
+
+        let date = task.getAttribute("data-date");
+        let endTime = task.getAttribute("data-endtime");
+
+        if(!date || !endTime){
+            return;
+        }
+
+        let taskEndTime = new Date(date + "T" + endTime);
+
+        if(now >= taskEndTime){
+
+            let sound = document.getElementById("alarmSound");
+
+            if(sound){
+                sound.play();
+            }
+
+            if(Notification.permission === "granted"){
+                new Notification("Study Time Ended ⏰", {
+                    body: "Your planned study task time is over."
+                });
+            }
+
+            task.setAttribute("data-alerted","true");
+
+            let choice = confirm(
+                "⏰ Study Time Ended!\n\nOK = Complete Task\nCancel = Reschedule"
+            );
+
+            if(choice){
+                completeTask(task.querySelector("button"));
+            }
+            else{
+                rescheduleTask(task);
+            }
+
+            savePlans();
+        }
+    });
+}
+
+function rescheduleTask(task){
+
+    let newDate = prompt("Enter new date YYYY-MM-DD");
+    let newStartTime = prompt("Enter new start time HH:MM");
+    let newEndTime = prompt("Enter new end time HH:MM");
+
+    if(newDate && newStartTime && newEndTime){
+
+        task.setAttribute("data-date", newDate);
+        task.setAttribute("data-endtime", newEndTime);
+        task.setAttribute("data-alerted", "false");
+
+        let taskLine = task.querySelector(".task-line");
+
+        if(taskLine){
+
+            let text = taskLine.innerText;
+            let parts = text.split("|");
+
+            let subject = parts[0].trim();
+            let taskName = parts[3].trim();
+            let priority = parts[4].trim();
+
+            taskLine.innerHTML =
+            `${subject} | ${newDate} | ${newStartTime} - ${newEndTime} | ${taskName} | ${priority}`;
+        }
+
+        let status = task.querySelector(".task-status");
+
+        if(status){
+            status.innerHTML = "🟢 Pending";
+        }
+alert(task.getAttribute("data-endtime"));
+        savePlans();
+
+        alert("Task Rescheduled Successfully");
+    }
+}
+
+setInterval(checkTimeEnded, 30000);
+
+</script>
+<audio id="alarmSound">
+    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+</audio>
+</body>
+</html>

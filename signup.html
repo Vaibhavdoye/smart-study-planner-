@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Signup</title>
+
+    <link rel="stylesheet"
+    href="style.css">
+
+</head>
+<body>
+
+<div class="auth-container">
+
+    <h1>Create Account</h1>
+    
+<input type="text" id="fullName" placeholder="Full Name *">
+
+<input type="file" id="profilePhoto" accept="image/*">
+
+<input type="email" id="signupEmail" placeholder="Email *">
+
+<input type="password" id="signupPassword" placeholder="Password *">
+
+<input type="text" id="branch" placeholder="Branch (Optional)">
+
+<input type="text" id="semester" placeholder="Semester (Optional)">
+
+<button type="button" onclick="signup()">
+    Signup
+</button>
+    <p style="margin-top:15px;">
+
+Already have an account?
+
+<a href="login.html">
+
+Login
+
+</a>
+
+</p>
+
+
+</div>
+
+<!-- Firebase -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script src="firebase.js"></script>
+
+<script>
+
+function signup(){
+  
+    let fullName =
+    document.getElementById("fullName").value;
+
+    let email =
+    document.getElementById("signupEmail").value;
+
+    let password =
+    document.getElementById("signupPassword").value;
+
+    let branch =
+    document.getElementById("branch").value;
+
+    let semester =
+    document.getElementById("semester").value;
+
+    let photo =
+    document.getElementById("profilePhoto").files[0];
+
+    if(fullName == ""){
+
+        alert("Please Enter Full Name");
+        return;
+    }
+
+    if(photo){
+
+        let reader =
+        new FileReader();
+
+        reader.onload = function(){
+
+            localStorage.setItem(
+                "profilePhoto",
+                reader.result
+            );
+        }
+
+        reader.readAsDataURL(photo);
+    }
+
+    firebase.auth()
+
+    .createUserWithEmailAndPassword(
+        email,
+        password
+    )
+
+    .then(()=>{
+
+        localStorage.setItem(
+            "studentName",
+            fullName
+        );
+
+        localStorage.setItem(
+            "studentEmail",
+            email
+        );
+
+        localStorage.setItem(
+            "studentBranch",
+            branch
+        );
+
+        localStorage.setItem(
+            "studentSemester",
+            semester
+        );
+
+        alert("Signup Successful");
+
+        window.location.href =
+        "login.html";
+    })
+
+    .catch((error)=>{
+
+        alert(error.message);
+    });
+}
+</script>

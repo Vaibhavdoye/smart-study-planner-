@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Notes</title>
+
+    <link rel="stylesheet"
+    href="style.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h1>Quick Notes</h1>
+
+    <ul>
+
+        <li>
+            <a href="dashboard.html">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="planner.html">
+                Planner
+            </a>
+        </li>
+
+        <li>
+            <a href="attendance.html">
+                Attendance
+            </a>
+        </li>
+
+        <li>
+            <a href="notes.html">
+                Notes
+            </a>
+        </li>
+
+        <li>
+            <a href="analytics.html">
+                Analytics
+            </a>
+        </li>
+<li><a href="pomodoro.html">Pomodoro</a></li>
+<li><a href="progress.html">Progress</a></li>
+    </ul>
+
+</nav>
+
+<!-- NOTES SECTION -->
+
+<section class="notes">
+
+    <h2>Write Your Notes 📝</h2>
+
+    <textarea
+
+    id="notesInput"
+
+    placeholder="Write Notes Here">
+
+    </textarea>
+
+    <br>
+
+    <button onclick="saveNotes()">
+        Save Notes
+    </button>
+
+</section>
+
+<!-- SAVED MESSAGE -->
+
+<h3 id="savedMessage">
+
+</h3>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* SAVE NOTES */
+
+function saveNotes(){
+
+    let notes =
+
+    document.getElementById(
+    "notesInput"
+    ).value;
+
+    localStorage.setItem(
+        "notes",
+        notes
+    );
+
+    document.getElementById(
+    "savedMessage"
+    ).innerHTML =
+
+    "Notes Saved Successfully ✅";
+}
+
+/* SHOW NOTES */
+
+window.onload = function(){
+
+    document.getElementById(
+    "notesInput"
+    ).value =
+
+    localStorage.getItem(
+    "notes"
+    );
+}
+
+</script>
+
+</body>
+
+</html>

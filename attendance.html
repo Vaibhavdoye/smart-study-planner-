@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance</title>
+
+    <link rel="stylesheet"
+    href="style.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h1>Attendance Tracker</h1>
+
+    <ul>
+
+        <li>
+            <a href="dashboard.html">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="planner.html">
+                Planner
+            </a>
+        </li>
+
+        <li>
+            <a href="attendance.html">
+                Attendance
+            </a>
+        </li>
+
+        <li>
+            <a href="notes.html">
+                Notes
+            </a>
+        </li>
+
+        <li>
+            <a href="analytics.html">
+                Analytics
+            </a>
+        </li>
+<li><a href="pomodoro.html">Pomodoro</a></li>
+<li><a href="progress.html">Progress</a></li>
+    </ul>
+
+</nav>
+
+<!-- ATTENDANCE -->
+
+<section class="attendance">
+
+    <h2>Attendance Tracker</h2>
+
+    <input
+    type="text"
+    id="subject"
+    placeholder="Subject Name">
+
+    <input
+    type="number"
+    id="attendanceInput"
+    placeholder="Attendance %">
+
+    <button onclick="addAttendance()">
+        Add
+    </button>
+
+    <ul id="attendanceList"></ul>
+
+</section>
+
+<!-- ANALYTICS -->
+
+<section class="chart-section">
+
+    <h2>Attendance Analytics</h2>
+
+    <canvas id="studyChart"></canvas>
+
+</section>
+
+<!-- CHART JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+/* ATTENDANCE */
+
+function addAttendance(){
+
+    let subject =
+    document.getElementById("subject").value;
+
+    let attendance =
+    document.getElementById("attendanceInput").value;
+
+    let attendanceList =
+    document.getElementById("attendanceList");
+
+    let li =
+    document.createElement("li");
+
+    li.innerHTML =
+
+    `${subject} : ${attendance}%
+
+    <button onclick="deleteItem(this)">
+    Delete
+    </button>
+
+    `;
+
+    attendanceList.appendChild(li);
+
+    saveAttendance();
+}
+
+/* SAVE */
+
+function saveAttendance(){
+
+    localStorage.setItem(
+
+        "attendanceData",
+
+        document.getElementById(
+        "attendanceList"
+        ).innerHTML
+    );
+}
+
+/* SHOW */
+
+function showAttendance(){
+
+    document.getElementById(
+    "attendanceList"
+    ).innerHTML =
+
+    localStorage.getItem(
+    "attendanceData"
+    );
+}
+
+showAttendance();
+
+/* DELETE */
+
+function deleteItem(button){
+
+    button.parentElement.remove();
+
+    saveAttendance();
+}
+
+/* CHART */
+
+const ctx =
+document.getElementById('studyChart');
+
+new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: [
+
+            'Math',
+            'DBMS',
+            'Java',
+            'Python',
+            'CN'
+
+        ],
+
+        datasets: [{
+
+            label: 'Attendance %',
+
+            data: [85,75,90,80,70],
+
+            borderWidth: 1
+        }]
+    },
+
+    options: {
+
+        responsive:true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true,
+
+                max:100
+            }
+        }
+    }
+});
+
+</script>
+
+</body>
+
+</html>

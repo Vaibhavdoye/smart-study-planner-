@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Analytics</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<nav>
+
+<h1>Analytics</h1>
+
+<ul>
+
+<li><a href="dashboard.html">Home</a></li>
+
+<li><a href="planner.html">Planner</a></li>
+
+<li><a href="attendance.html">Attendance</a></li>
+
+<li><a href="notes.html">Notes</a></li>
+
+<li><a href="analytics.html">Analytics</a></li>
+<li><a href="pomodoro.html">Pomodoro</a></li>
+<li><a href="progress.html">Progress</a></li>
+</ul>
+
+</nav>
+
+<section class="analytics">
+
+<h2>Study Progress Analytics 📊</h2>
+
+<canvas id="progressChart"></canvas>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx =
+document.getElementById(
+"progressChart"
+);
+
+new Chart(ctx,{
+
+type:"doughnut",
+
+data:{
+
+labels:[
+
+"Completed",
+
+"Remaining"
+
+],
+
+datasets:[{
+
+data:[70,30]
+
+}]
+}
+
+});
+
+</script>
+
+</body>
+
+</html>

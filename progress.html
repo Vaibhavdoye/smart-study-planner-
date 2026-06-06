@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Progress Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <h1>Progress Tracker</h1>
+
+    <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="planner.html">Planner</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="pomodoro.html">Pomodoro</a></li>
+        <li><a href="progress.html">Progress</a></li>
+    </ul>
+</nav>
+
+<section class="progress">
+
+    <h2>Subject Progress Tracker</h2>
+    <div class="overall-card">
+    <h3>Overall Progress</h3>
+    <h1 id="overallProgress">0%</h1>
+</div>
+<div class="overall-card">
+    <h3>🔥 Study Streak</h3>
+    <h1 id="streakCount">0 Days</h1>
+</div>
+    <input type="text"
+    id="subjectName"
+    placeholder="Subject Name">
+
+    <input type="number"
+    id="totalTopics"
+    placeholder="Total Topics">
+
+    <button onclick="addSubject()">
+        Add Subject
+    </button>
+
+    <div id="progressList"></div>
+
+</section>
+
+<script>
+
+let subjects =
+JSON.parse(localStorage.getItem("subjects")) || [];
+
+function addSubject(){
+
+    let subjectName =
+    document.getElementById("subjectName").value;
+
+    let totalTopics =
+    document.getElementById("totalTopics").value;
+
+    if(subjectName === "" || totalTopics === ""){
+
+        alert("Please enter subject and total topics");
+        return;
+    }
+
+    let subject = {
+        name: subjectName,
+        total: Number(totalTopics),
+        completed: 0
+    };
+
+    subjects.push(subject);
+
+    saveSubjects();
+    showSubjects();
+
+    document.getElementById("subjectName").value = "";
+    document.getElementById("totalTopics").value = "";
+}
+
+function showSubjects(){
+
+    let progressList =
+    document.getElementById("progressList");
+
+    progressList.innerHTML = "";
+
+    let totalPercent = 0;
+
+    subjects.forEach((subject,index)=>{
+
+        let percent =
+        Math.round((subject.completed / subject.total) * 100);
+
+        totalPercent += percent;
+
+        let badge = "";
+
+        if(percent === 100){
+            badge = "<h3 class='complete-badge'>🏆 Subject Completed</h3>";
+        }
+
+        progressList.innerHTML += `
+
+        <div class="progress-card">
+
+            <h3>${subject.name}</h3>
+
+            <p>Completed: ${subject.completed} / ${subject.total}</p>
+
+            <progress value="${percent}" max="100"></progress>
+
+            <h4>${percent}% Complete</h4>
+
+            ${badge}
+
+            <button onclick="completeTopic(${index})">
+                Complete One Topic
+            </button>
+
+            <button onclick="editSubject(${index})">
+                Edit
+            </button>
+
+            <button onclick="deleteSubject(${index})">
+                Delete
+            </button>
+
+        </div>
+        `;
+    });
+
+    let overall = 0;
+
+    if(subjects.length > 0){
+        overall = Math.round(totalPercent / subjects.length);
+    }
+
+    document.getElementById("overallProgress").innerHTML =
+    overall + "%";
+}
+
+           
+
+function completeTopic(index){
+
+    if(subjects[index].completed < subjects[index].total){
+
+        subjects[index].completed++;
+    }
+
+    saveSubjects();
+    showSubjects();
+}
+
+function deleteSubject(index){
+
+    subjects.splice(index,1);
+
+    saveSubjects();
+    showSubjects();
+}
+
+function saveSubjects(){
+
+    localStorage.setItem(
+        "subjects",
+        JSON.stringify(subjects)
+    );
+}
+
+showSubjects();
+let streak =
+localStorage.getItem("studyStreak") || 0;
+
+document.getElementById("streakCount").innerHTML =
+`${streak} Days`;
+function editSubject(index){
+
+    let newName =
+    prompt("Enter new subject name", subjects[index].name);
+
+    let newTotal =
+    prompt("Enter total topics", subjects[index].total);
+
+    let newCompleted =
+    prompt("Enter completed topics", subjects[index].completed);
+
+    if(newName !== null && newTotal !== null && newCompleted !== null){
+
+        subjects[index].name = newName;
+        subjects[index].total = Number(newTotal);
+        subjects[index].completed = Number(newCompleted);
+
+        saveSubjects();
+        showSubjects();
+    }
+}
+
+</script>
+
+</body>
+</html>
